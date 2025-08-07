@@ -2,10 +2,10 @@ from fastapi import FastAPI
 
 from routes import router
 
+
 app = FastAPI(title="Shay Zilberman's Home Assigment")
 
 app.include_router(router)
-
 
 if __name__ == "__main__":
     import uvicorn
