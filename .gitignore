@@ -41,6 +41,10 @@ env/
 venv/
 ENV/
 
+# Secrets and local configuration
+.secrets.toml
+*.secrets.toml
+
 # IDE files
 .vscode/
 .idea/

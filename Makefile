@@ -10,7 +10,7 @@ help:
 	@echo "  docker-run   - Run Docker container"
 
 install:
-	poetry install --only main
+	poetry lock && poetry install --only main
 
 lint:
 	poetry run autoflake --check --remove-all-unused-imports --recursive app/
@@ -36,3 +36,6 @@ docker-build:
 
 docker-run:
 	docker run -p 8000:8000 app
+
+docker-build-run:
+	docker build -t app . && run -p 8000:8000 app
