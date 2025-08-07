@@ -21,7 +21,7 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock ./
+COPY settings.toml pyproject.toml poetry.lock ./
 
 RUN poetry install --only main
 
