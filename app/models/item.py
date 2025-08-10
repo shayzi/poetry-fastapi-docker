@@ -3,7 +3,6 @@ from typing import Optional
 from sqlmodel import Field, SQLModel
 
 
-# Database table model
 class Item(SQLModel, table=True):
     __tablename__ = "items"
 
@@ -13,7 +12,6 @@ class Item(SQLModel, table=True):
     is_offer: Optional[bool] = Field(default=False)
 
 
-# Pydantic models for API requests/responses
 class ItemBase(SQLModel):
     name: str = Field(max_length=255)
     price: float = Field(gt=0, description="Price must be greater than 0")

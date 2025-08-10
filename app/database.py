@@ -4,10 +4,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlmodel import Session, SQLModel
 
+from config import settings
+
 
 engine = create_engine(
-    get_database_url(),
-    echo=True,  # Set to False in production
+    settings.database_url,
+    echo=settings.database_echo,  # Set to False in production
     pool_pre_ping=True,  # Enable connection health checks
     pool_recycle=300,  # Recycle connections every 5 minutes
 )

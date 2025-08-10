@@ -25,10 +25,16 @@ COPY settings.toml pyproject.toml poetry.lock ./
 
 RUN poetry install --only main
 
-COPY ./app ./app
+COPY ./app ./app/
+
+COPY ./alembic ./alembic/
 
 WORKDIR /app/app
 
 EXPOSE 8000
 
-CMD poetry run python main.py
+COPY docker-entrypoint.sh alembic.ini /app/
+
+RUN chmod +x /app/docker-entrypoint.sh
+
+CMD ["/app/docker-entrypoint.sh"]

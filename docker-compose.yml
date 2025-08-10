@@ -1,26 +1,7 @@
 services:
-  # PostgreSQL Database
-  db:
-    image: postgres:15-alpine
-    container_name: shay-zilberman-db
-    environment:
-      POSTGRES_DB: homeassignment
-      POSTGRES_USER: dbuser
-      POSTGRES_PASSWORD: dbpassword
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dbuser -d homeassignment"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # FastAPI Application
   app:
     container_name: shay-zilberman-app
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     ports:
@@ -31,10 +12,25 @@ services:
     environment:
       - PYTHONPATH=/app/app
       - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgresql://dbuser:dbpassword@db:5432/homeassignment
+      - HOME_ASSIGNMENT_ENV=development
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: shay-zilberman-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbuser -d homeassignment"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - app-network
 

@@ -15,6 +15,9 @@ debug = true
 api_reload = true
 log_level = "DEBUG"
 
+database_url = "postgresql://dbuser:dbpassword@db:5432/homeassignment"
+database_echo = true
+
 [testing]
 debug = true
 log_level = "WARNING"
