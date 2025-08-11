@@ -1,6 +1,7 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
-from typing import List
 
 from database import get_session
 from models.item import Item, ItemCreate, ItemRead, ItemUpdate
@@ -42,11 +43,11 @@ def update_item(item_id: int, item_update: ItemUpdate, session: Session = Depend
     db_item = session.get(Item, item_id)
     if not db_item:
         raise HTTPException(status_code=404, detail="Item not found")
-    
+
     item_data = item_update.model_dump(exclude_unset=True)
     for key, value in item_data.items():
         setattr(db_item, key, value)
-    
+
     session.add(db_item)
     session.commit()
     session.refresh(db_item)
@@ -58,7 +59,7 @@ def delete_item(item_id: int, session: Session = Depends(get_session)):
     item = session.get(Item, item_id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    
+
     session.delete(item)
     session.commit()
     return {"message": "Item deleted"}

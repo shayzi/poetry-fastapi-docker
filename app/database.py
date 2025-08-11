@@ -1,7 +1,7 @@
 from typing import Generator
 
-from sqlalchemy import create_engine
-from sqlmodel import Session, SQLModel, create_engine as sqlmodel_create_engine
+from sqlmodel import Session, SQLModel
+from sqlmodel import create_engine as sqlmodel_create_engine
 
 from config import settings
 
